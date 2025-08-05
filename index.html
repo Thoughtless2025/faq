@@ -72,15 +72,15 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
                 </svg>
-                <span class="hidden md:inline">more frequently asked questions</span>
+                <span class="hidden md:inline">More Frequently Asked Questions</span>
             </button>
 
             <button id="toggleExpandBtn" class="flex-none bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-1 px-1 text-xs sm:text-sm rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:scale-105">
-                <span id="toggleArrow">▼</span> <span id="toggleLabel" class="hidden md:inline">More frequently asked questions</span>
+                <span id="toggleArrow">▼</span> <span id="toggleLabel" class="hidden md:inline">More FAQs</span>
             </button>
 
             <button id="nextPageBtn" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-1 text-xs sm:text-sm rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-1">
-                <span class="hidden md:inline">less frequently asked questions</span>
+                <span class="hidden md:inline">Less Frequently Asked Questions</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                 </svg>
@@ -135,8 +135,8 @@
             { term: "Ethical fashion brands", frequency: 130000 },
             { term: "Neuroplasticity explained", frequency: 110000 },
             { term: "Quantum computing basics", frequency: 90000 },
-            { term: "The meaning of dreams", frequency: 70000 },
-            { term: "How not to tie a knot", frequency: 60000 }, /* New entry added here */
+            { term: "Dreaming of meaning", frequency: 70000 },
+            { term: "How not to tie a knot", frequency: 60000 },
             { term: "Why do my socks go missing in the dryer?", frequency: 50000 },
             { term: "Is it safe to eat a spider in my sleep?", frequency: 30000 },
             { term: "How to train a cat to fetch", frequency: 10000 },
@@ -215,11 +215,11 @@
             if (isExpanded) {
                 faqContent.classList.add('expanded');
                 toggleArrow.textContent = '▲';
-                toggleLabel.textContent = 'Fewer frequently asked questions';
+                toggleLabel.textContent = 'Fewer FAQs';
             } else {
                 faqContent.classList.remove('expanded');
                 toggleArrow.textContent = '▼';
-                toggleLabel.textContent = 'More frequently asked questions';
+                toggleLabel.textContent = 'More FAQs';
             }
         }
 
@@ -253,4 +253,3 @@
     </script>
 </body>
 </html>
-
