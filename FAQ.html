@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs - The Rascally App</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for Inter font and general body */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f4f8; /* Light blue-gray background */
+        }
+
+        /* Specific styles for the collapsible content box */
+        .content-box {
+            max-height: 150px; /* Initial collapsed height */
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+
+        .content-box.expanded {
+            max-height: 800px; /* Expanded height, adjust as needed */
+        }
+
+        /* Styling for the loading spinner */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #3b82f6; /* Blue */
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+
+    <div class="bg-white rounded-xl shadow-2xl p-6 md:p-8 w-full max-w-lg">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-6 text-center">FAQs</h1>
+        <p class="text-gray-600 text-center mb-8">
+            The most frequently asked questions, determined by their search frequency.
+        </p>
+
+        <!-- Collapsible Content Box -->
+        <div id="faqContent" class="content-box border border-gray-300 rounded-lg p-4 mb-6 bg-gray-50 relative">
+            <ul id="faqList" class="list-none p-0 m-0 text-gray-700 text-sm md:text-base">
+                <!-- FAQ items will be loaded here by JavaScript -->
+                <li class="py-1.5 border-b border-gray-200 last:border-b-0">Loading...</li>
+            </ul>
+            <!-- Loading overlay -->
+            <div id="loadingOverlay" class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-80 rounded-lg">
+                <div class="spinner"></div>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="flex justify-between items-center space-x-1 md:space-x-4">
+            <button id="prevPageBtn" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-1 text-xs sm:text-sm rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <span class="hidden md:inline">more frequently asked questions</span>
+            </button>
+
+            <button id="toggleExpandBtn" class="flex-none bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-1 px-1 text-xs sm:text-sm rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:scale-105">
+                <span id="toggleArrow">▼</span> <span id="toggleLabel" class="hidden md:inline">More frequently asked questions</span>
+            </button>
+
+            <button id="nextPageBtn" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-1 text-xs sm:text-sm rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-1">
+                <span class="hidden md:inline">less frequently asked questions</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Static data for demonstration, sorted by frequency (highest first)
+        const allSearchTerms = [
+            { term: "How to tie a tie", frequency: 987654 },
+            { term: "Weather forecast", frequency: 950000 },
+            { term: "News headlines", frequency: 920000 },
+            { term: "Best pizza near me", frequency: 890000 },
+            { term: "What is AI?", frequency: 870000 },
+            { term: "Latest movie releases", frequency: 850000 },
+            { term: "Flights to London", frequency: 830000 },
+            { term: "Recipe for chicken curry", frequency: 810000 },
+            { term: "Local sports scores", frequency: 790000 },
+            { term: "How to fix a leaky faucet", frequency: 770000 },
+            { term: "Online shopping deals", frequency: 750000 },
+            { term: "Stock market today", frequency: 730000 },
+            { term: "Translate English to Spanish", frequency: 710000 },
+            { term: "Yoga poses for beginners", frequency: 690000 },
+            { term: "Dog training tips", frequency: 670000 },
+            { term: "Why is the sky blue?", frequency: 650000 },
+            { term: "Best coffee shops", frequency: 630000 },
+            { term: "Car repair near me", frequency: 610000 },
+            { term: "Learn Python programming", frequency: 590000 },
+            { term: "Healthy breakfast ideas", frequency: 570000 },
+            { term: "Concerts this weekend", frequency: 550000 },
+            { term: "How to meditate", frequency: 530000 },
+            { term: "Gardening tips for beginners", frequency: 510000 },
+            { term: "Book recommendations", frequency: 490000 },
+            { term: "Online courses for marketing", frequency: 470000 },
+            { term: "Pet adoption centers", frequency: 450000 },
+            { term: "History of the Roman Empire", frequency: 430000 },
+            { term: "Best hiking trails", frequency: 410000 },
+            { term: "DIY home decor ideas", frequency: 390000 },
+            { term: "Science experiments for kids", frequency: 370000 },
+            { term: "Remote jobs hiring now", frequency: 350000 },
+            { term: "How to save money", frequency: 330000 },
+            { term: "Virtual reality games", frequency: 310000 },
+            { term: "Benefits of green tea", frequency: 290000 },
+            { term: "Types of clouds", frequency: 270000 },
+            { term: "Famous quotes about life", frequency: 250000 },
+            { term: "Beginner guitar lessons", frequency: 230000 },
+            { term: "Sustainable living tips", frequency: 210000 },
+            { term: "Space exploration updates", frequency: 190000 },
+            { term: "Origin of phrases", frequency: 170000 },
+            { term: "How to make sourdough bread", frequency: 150000 },
+            { term: "Ethical fashion brands", frequency: 130000 },
+            { term: "Neuroplasticity explained", frequency: 110000 },
+            { term: "Quantum computing basics", frequency: 90000 },
+            { term: "The meaning of dreams", frequency: 70000 },
+            { term: "How not to tie a knot", frequency: 60000 }, /* New entry added here */
+            { term: "Why do my socks go missing in the dryer?", frequency: 50000 },
+            { term: "Is it safe to eat a spider in my sleep?", frequency: 30000 },
+            { term: "How to train a cat to fetch", frequency: 10000 },
+            { term: "Can plants feel pain?", frequency: 5000 },
+            { term: "The sound of one hand clapping", frequency: 1000 }
+        ];
+
+        // DOM elements
+        const faqContent = document.getElementById('faqContent');
+        const faqList = document.getElementById('faqList');
+        const toggleExpandBtn = document.getElementById('toggleExpandBtn');
+        const toggleArrow = document.getElementById('toggleArrow');
+        const toggleLabel = document.getElementById('toggleLabel');
+        const prevPageBtn = document.getElementById('prevPageBtn');
+        const nextPageBtn = document.getElementById('nextPageBtn');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+
+        // State variables
+        let isExpanded = false;
+        let currentPage = 0;
+        const itemsPerPage = 10; // Number of items to show per "page"
+
+        /**
+         * Renders the current page of search terms into the FAQ list.
+         */
+        function renderFaqList() {
+            // Show loading overlay
+            loadingOverlay.classList.remove('hidden');
+            loadingOverlay.classList.add('flex');
+
+            // Simulate a slight delay for "data fetching"
+            setTimeout(() => {
+                faqList.innerHTML = ''; // Clear current list
+
+                const startIndex = currentPage * itemsPerPage;
+                const endIndex = Math.min(startIndex + itemsPerPage, allSearchTerms.length);
+
+                if (allSearchTerms.length === 0) {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'py-1.5 text-center text-gray-500';
+                    listItem.textContent = 'No search terms available.';
+                    faqList.appendChild(listItem);
+                } else {
+                    for (let i = startIndex; i < endIndex; i++) {
+                        const item = allSearchTerms[i];
+                        const listItem = document.createElement('li');
+                        listItem.className = 'py-1.5 border-b border-gray-200 last:border-b-0 flex justify-between items-center';
+                        listItem.innerHTML = `
+                            <span class="flex-1 truncate">${item.term}</span>
+                            <span class="ml-2 text-gray-500 text-xs md:text-sm flex-none">${item.frequency.toLocaleString()}</span>
+                        `;
+                        faqList.appendChild(listItem);
+                    }
+                }
+
+                updateNavigationButtons();
+                // Hide loading overlay
+                loadingOverlay.classList.remove('flex');
+                loadingOverlay.classList.add('hidden');
+            }, 300); // Small delay
+        }
+
+        /**
+         * Updates the state of the pagination buttons (enabled/disabled).
+         */
+        function updateNavigationButtons() {
+            prevPageBtn.disabled = currentPage === 0;
+            nextPageBtn.disabled = (currentPage + 1) * itemsPerPage >= allSearchTerms.length;
+        }
+
+        /**
+         * Toggles the expansion state of the FAQ content box.
+         */
+        function toggleExpandCollapse() {
+            isExpanded = !isExpanded;
+            if (isExpanded) {
+                faqContent.classList.add('expanded');
+                toggleArrow.textContent = '▲';
+                toggleLabel.textContent = 'Fewer frequently asked questions';
+            } else {
+                faqContent.classList.remove('expanded');
+                toggleArrow.textContent = '▼';
+                toggleLabel.textContent = 'More frequently asked questions';
+            }
+        }
+
+        /**
+         * Navigates to the previous page of search terms.
+         */
+        function goToPrevPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                renderFaqList();
+            }
+        }
+
+        /**
+         * Navigates to the next page of search terms.
+         */
+        function goToNextPage() {
+            if ((currentPage + 1) * itemsPerPage < allSearchTerms.length) {
+                currentPage++;
+                renderFaqList();
+            }
+        }
+
+        // Event Listeners
+        toggleExpandBtn.addEventListener('click', toggleExpandCollapse);
+        prevPageBtn.addEventListener('click', goToPrevPage);
+        nextPageBtn.addEventListener('click', goToNextPage);
+
+        // Initial render on page load
+        document.addEventListener('DOMContentLoaded', renderFaqList);
+    </script>
+</body>
+</html>
+
