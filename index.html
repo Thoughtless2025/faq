@@ -67,21 +67,21 @@
         </div>
 
         <!-- Navigation Buttons -->
-        <div class="flex justify-between items-center space-x-1 md:space-x-4">
-            <button id="prevPageBtn" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-1 text-xs sm:text-sm rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor">
+        <div class="flex justify-between items-center space-x-0.5 md:space-x-4">
+            <button id="prevPageBtn" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-0.5 text-[0.6rem] sm:text-xs md:text-sm rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-0.5">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
                 </svg>
-                <span class="hidden md:inline">More Frequently Asked Questions</span>
+                <span class="inline">More Frequently Asked Questions</span>
             </button>
 
-            <button id="toggleExpandBtn" class="flex-none bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-1 px-1 text-xs sm:text-sm rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:scale-105">
-                <span id="toggleArrow">▼</span> <span id="toggleLabel" class="hidden md:inline">More FAQs</span>
+            <button id="toggleExpandBtn" class="flex-none bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-1 px-0.5 text-[0.6rem] sm:text-xs md:text-sm rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:scale-105">
+                <span id="toggleArrow">▼</span> <span id="toggleLabel" class="inline">More FAQs</span>
             </button>
 
-            <button id="nextPageBtn" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-1 text-xs sm:text-sm rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-1">
-                <span class="hidden md:inline">Less Frequently Asked Questions</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor">
+            <button id="nextPageBtn" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-0.5 text-[0.6rem] sm:text-xs md:text-sm rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-0.5">
+                <span class="inline">Less Frequently Asked Questions</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                 </svg>
             </button>
@@ -100,7 +100,7 @@
             { term: "Flights to London", frequency: 830000 },
             { term: "Recipe for chicken curry", frequency: 810000 },
             { term: "Local sports scores", frequency: 790000 },
-            { term: "How to fix a leaky faucet (tap here)", frequency: 770000 },
+            { term: "How to fix a leaky faucet", frequency: 770000 },
             { term: "Online shopping deals", frequency: 750000 },
             { term: "Stock market today", frequency: 730000 },
             { term: "Translate English to Spanish", frequency: 710000 },
