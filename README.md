@@ -1,0 +1,2 @@
+# faq
+The rascally faq
